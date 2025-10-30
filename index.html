@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AstroFeeling • Love & Life Reading</title>
     <style>
       :root {
@@ -17,29 +17,32 @@
       }
       html,
       body {
-        height: 100%;
         margin: 0;
-      }
-      body {
+        padding: 0;
+        height: 100%;
+        font-family: Inter, sans-serif;
+        color: #f5eef8;
         background: radial-gradient(
             800px 500px at 10% 10%,
             rgba(255, 180, 210, 0.03),
             transparent
           ),
           linear-gradient(180deg, var(--bg1), var(--bg2));
-        color: #f5eef8;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-          Roboto, "Helvetica Neue", Arial;
+      }
+      body {
         display: flex;
         justify-content: center;
+        align-items: flex-start;
         padding: 28px;
-        overflow-y: auto;
       }
       .container {
         width: 100%;
         max-width: 980px;
       }
       .card {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
         background: linear-gradient(
           180deg,
           rgba(255, 255, 255, 0.015),
@@ -47,10 +50,19 @@
         );
         border-radius: 18px;
         padding: 28px;
-        display: grid;
-        gap: 20px;
-        grid-template-columns: 1fr 340px;
         box-shadow: 0 18px 60px rgba(3, 6, 20, 0.6);
+      }
+      .main {
+        flex: 1 1 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      aside {
+        flex: 1 1 280px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
       }
       header {
         display: flex;
@@ -62,27 +74,21 @@
         height: 72px;
         border-radius: 16px;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         font-weight: 800;
-        color: #2b0033;
-        background: linear-gradient(135deg, #ffd6e8, #ff8fc1);
         font-size: 26px;
+        background: linear-gradient(135deg, #ffd6e8, #ff8fc1);
+        color: #2b0033;
       }
       h1 {
         margin: 0;
         font-size: 20px;
       }
       .lead {
-        margin: 6px 0 0;
-        color: var(--muted);
         font-size: 13px;
-      }
-      .main {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        padding: 12px;
+        margin-top: 6px;
+        color: var(--muted);
       }
       .top-row {
         display: flex;
@@ -93,8 +99,8 @@
         font-weight: 700;
       }
       .tz {
-        color: var(--muted);
         font-size: 12px;
+        color: var(--muted);
       }
       .feeling {
         display: flex;
@@ -106,7 +112,6 @@
       }
       .emoji {
         font-size: 48px;
-        display: inline-block;
         animation: float 3s ease-in-out infinite;
       }
       .meta .title {
@@ -117,11 +122,11 @@
         font-size: 13px;
       }
       .grid-mini {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex;
         gap: 12px;
       }
       .card-mini {
+        flex: 1;
         background: rgba(255, 255, 255, 0.02);
         padding: 12px;
         border-radius: 12px;
@@ -131,30 +136,29 @@
         font-size: 13px;
       }
       .card-mini p {
-        margin: 8px 0 0;
+        margin-top: 8px;
         color: var(--muted);
         font-size: 13px;
       }
-      .thoughts {
+      .thoughts,
+      .future {
+        background: rgba(255, 255, 255, 0.02);
         padding: 14px;
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.02);
       }
       .future {
-        padding: 14px;
-        border-radius: 12px;
         background: rgba(255, 255, 255, 0.01);
       }
       .loveCard {
-        margin-top: 6px;
+        position: relative;
         padding: 16px;
         border-radius: 14px;
+        margin-top: 6px;
         background: linear-gradient(
           180deg,
           rgba(255, 140, 180, 0.06),
           rgba(255, 140, 180, 0.02)
         );
-        position: relative;
         overflow: hidden;
       }
       .loveGlow {
@@ -182,87 +186,85 @@
         margin: 0;
       }
       .loveLine {
-        color: var(--muted);
         margin: 10px 0;
         font-size: 14px;
+        color: var(--muted);
       }
       .loveMeta {
         display: flex;
-        gap: 8px;
         flex-wrap: wrap;
+        gap: 8px;
       }
       .pill {
         background: rgba(255, 255, 255, 0.04);
         padding: 8px 10px;
         border-radius: 999px;
         font-size: 13px;
-        color: #fff;
         display: flex;
         align-items: center;
         gap: 6px;
+        color: #fff;
       }
       .loveHeart {
         position: absolute;
-        right: 18px;
         top: 8px;
+        right: 18px;
         font-size: 34px;
         opacity: 0.12;
         transform: rotate(-10deg);
         animation: heartbeat 3s ease-in-out infinite;
         filter: drop-shadow(0 6px 12px rgba(255, 120, 170, 0.12));
       }
-      aside {
-        padding: 18px;
-        border-radius: 12px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.01),
-          rgba(255, 255, 255, 0)
-        );
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+      .divineGlow {
+        animation: shimmer 3s ease-in-out infinite;
+        background: linear-gradient(90deg, #ffb3e6, #ffd9f9, #fff0ff, #ffb3e6);
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .pill.divineGlow {
+        font-size: 14px;
+        padding: 10px 14px;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 18px rgba(255, 182, 220, 0.35),
+          0 0 30px rgba(255, 120, 170, 0.25);
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
       }
       label {
-        font-size: 12px;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
         color: var(--muted);
       }
-      input,
-      select,
-      button {
+      input {
         width: 100%;
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        background: transparent;
-        color: inherit;
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        font-size: 14px;
       }
-      .controls {
-        display: flex;
-        gap: 10px;
-      }
-      .btn {
+      button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 6px;
+        background: var(--accent);
+        color: #fff;
+        font-weight: 600;
         cursor: pointer;
       }
-      footer {
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 12px;
-        text-align: center;
-      }
-      @media (max-width: 900px) {
-        .card {
-          grid-template-columns: 1fr;
+      @keyframes shimmer {
+        0% {
+          background-position: 0% 50%;
         }
-        .loveHeart {
-          display: none;
+        50% {
+          background-position: 100% 50%;
         }
-      }
-      @media (max-width: 500px) {
-        .logo {
-          width: 64px;
-          height: 64px;
-          font-size: 22px;
+        100% {
+          background-position: 0% 50%;
         }
       }
       @keyframes float {
@@ -319,7 +321,7 @@
             </div>
           </div>
 
-          <div class="grid-mini" id="forecastGrid">
+          <div class="grid-mini">
             <div class="card-mini">
               <h3>Now</h3>
               <p id="moodNowText">—</p>
@@ -353,14 +355,13 @@
           <div class="loveCard" aria-live="polite" id="loveCard">
             <div class="loveGlow" aria-hidden="true"></div>
             <div class="loveHeart">💕</div>
-            <div class="loveTitle">
-              <h3>💖 Love & Marriage Glimpse</h3>
-            </div>
+            <div class="loveTitle"><h3>💖 Love & Marriage Glimpse</h3></div>
             <div class="loveLine" id="loveMainLine">—</div>
             <div class="loveMeta" id="loveMeta"></div>
           </div>
-
-          <footer>
+          <footer
+            style="margin-top: 14px; font-size: 11px; color: var(--muted)"
+          >
             AstroFeeling is for entertainment and self-reflection — not
             professional advice.
           </footer>
@@ -370,293 +371,212 @@
           <div>
             <label for="birth"
               >Your Birthdate (DOB) — required for love reading</label
-            >
-            <input id="birth" type="date" />
+            ><input id="birth" type="date" />
           </div>
           <div>
-            <label for="name">Your Name</label>
-            <input id="name" type="text" placeholder="e.g. Annie" />
+            <label for="name">Your Name</label
+            ><input id="name" type="text" placeholder="e.g. Annie" />
           </div>
           <div>
-            <label for="partnerName">Someone you love / interest</label>
-            <input id="partnerName" type="text" placeholder="e.g. Bob" />
+            <label for="partnerName">Someone you love / interest</label
+            ><input id="partnerName" type="text" placeholder="e.g. Bob" />
           </div>
           <div class="controls">
-            <button id="readBtn" class="btn">Generate reading</button>
+            <button id="readBtn">Generate reading</button>
           </div>
         </aside>
       </div>
     </div>
 
     <script>
-      // RNG helper
-      function mulberry32(a) {
-        return function () {
-          a |= 0;
-          a = (a + 0x6d2b79f5) | 0;
-          var t = Math.imul(a ^ (a >>> 15), 1 | a);
-          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-        };
-      }
-      function pick(rng, arr) {
-        return arr[Math.floor(rng() * arr.length)];
-      }
-      function zodiacFromDate(d) {
-        const signs = [
-          { name: "Capricorn", start: "12-22", end: "01-19" },
-          { name: "Aquarius", start: "01-20", end: "02-18" },
-          { name: "Pisces", start: "02-19", end: "03-20" },
-          { name: "Aries", start: "03-21", end: "04-19" },
-          { name: "Taurus", start: "04-20", end: "05-20" },
-          { name: "Gemini", start: "05-21", end: "06-20" },
-          { name: "Cancer", start: "06-21", end: "07-22" },
-          { name: "Leo", start: "07-23", end: "08-22" },
-          { name: "Virgo", start: "08-23", end: "09-22" },
-          { name: "Libra", start: "09-23", end: "10-22" },
-          { name: "Scorpio", start: "10-23", end: "11-21" },
-          { name: "Sagittarius", start: "11-22", end: "12-21" },
-        ];
-        const mm = String(d.getMonth() + 1).padStart(2, "0");
-        const dd = String(d.getDate()).padStart(2, "0");
-        const cur = Number(mm) * 100 + Number(dd);
-        for (const z of signs) {
-          const [sM, sD] = z.start.split("-").map(Number);
-          const [eM, eD] = z.end.split("-").map(Number);
-          const start = sM * 100 + sD;
-          const end = eM * 100 + eD;
-          if (start <= end) {
-            if (cur >= start && cur <= end) return z.name;
-          } else {
-            if (cur >= start || cur <= end) return z.name;
-          }
-        }
-        return null;
-      }
-
-      // Love reading helpers
-      function formatMonthRangeFromOffset(offsetMonths) {
-        const now = new Date();
-        const target = new Date(
-          now.getFullYear(),
-          now.getMonth() + offsetMonths,
-          1
-        );
-        const month = target.getMonth();
-        const year = target.getFullYear();
-        let part;
-        if (month <= 3) part = "early";
-        else if (month <= 7) part = "mid";
-        else part = "late";
-        return { part, year, monthIndex: month };
-      }
-      function describeDuration(rng) {
-        return pick(rng, [
-          "Lifelong",
-          "A few years",
-          "A meaningful chapter",
-          "Cyclic/recurring soul ties",
-        ]);
-      }
-      function describeConnectionType(rng) {
-        return pick(rng, [
-          "Soulmate",
-          "Twin-flame",
-          "Fated love",
-          "Deep karmic bond",
-          "Comforting partnership",
-        ]);
-      }
-      function describeMutualFeelings(rng, met) {
-        if (met) {
-          return pick(rng, [
-            { text: "Yes, strongly likes you", emoji: "💖" },
-            { text: "Maybe / slowly falling", emoji: "🌸" },
-            { text: "Curious, noticing you", emoji: "💌" },
-          ]);
-        } else {
-          return {
-            text: "Your connection is unfolding naturally ✨",
-            emoji: "💌",
+      document.addEventListener("DOMContentLoaded", function () {
+        function mulberry32(a) {
+          return function () {
+            a |= 0;
+            a = (a + 0x6d2b79f5) | 0;
+            var t = Math.imul(a ^ (a >>> 15), 1 | a);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
           };
         }
-      }
 
-      function generateLoveReading(birthIso, name, partnerName) {
-        let seed = 0;
-        const hasPartnerName = partnerName && partnerName.trim().length > 0;
+        function pick(rng, arr) {
+          return arr[Math.floor(rng() * arr.length)];
+        }
 
-        if (hasPartnerName && name) {
-          seed = Array.from(name + partnerName + birthIso).reduce(
-            (a, c) => a + c.charCodeAt(0),
-            0
+        function zodiacFromDate(d) {
+          const signs = [
+            { name: "Capricorn", start: "12-22", end: "01-19" },
+            { name: "Aquarius", start: "01-20", end: "02-18" },
+            { name: "Pisces", start: "02-19", end: "03-20" },
+            { name: "Aries", start: "03-21", end: "04-19" },
+            { name: "Taurus", start: "04-20", end: "05-20" },
+            { name: "Gemini", start: "05-21", end: "06-20" },
+            { name: "Cancer", start: "06-21", end: "07-22" },
+            { name: "Leo", start: "07-23", end: "08-22" },
+            { name: "Virgo", start: "08-23", end: "09-22" },
+            { name: "Libra", start: "09-23", end: "10-22" },
+            { name: "Scorpio", start: "10-23", end: "11-21" },
+            { name: "Sagittarius", start: "11-22", end: "12-21" },
+          ];
+          const mm = String(d.getMonth() + 1).padStart(2, "0");
+          const dd = String(d.getDate()).padStart(2, "0");
+          const cur = Number(mm) * 100 + Number(dd);
+          for (const z of signs) {
+            const [sM, sD] = z.start.split("-").map(Number);
+            const [eM, eD] = z.end.split("-").map(Number);
+            const start = sM * 100 + sD;
+            const end = eM * 100 + eD;
+            if (start <= end) {
+              if (cur >= start && cur <= end) return z.name;
+            } else {
+              if (cur >= start || cur <= end) return z.name;
+            }
+          }
+          return null;
+        }
+
+        function generateLoveReading(birthIso, name, partnerName) {
+          let seed = 0;
+          const hasPartnerName = partnerName && partnerName.trim().length > 0;
+          if (hasPartnerName && name) {
+            seed = Array.from(name + partnerName + birthIso).reduce(
+              (a, c) => a + c.charCodeAt(0),
+              0
+            );
+          } else if (birthIso) {
+            seed = new Date(birthIso + "T00:00:00Z").getTime() & 0xffffffff;
+          } else seed = 123456789;
+          const loveRng = mulberry32(seed);
+          const met = hasPartnerName
+            ? "Already met"
+            : "Fated love is approaching 🌸";
+          const whenText = hasPartnerName
+            ? "You first crossed paths around mid 2021"
+            : "";
+          const connectionType = hasPartnerName ? "Twin-flame" : "Fated love";
+          const duration = hasPartnerName ? "Cyclic/recurring soul ties" : "";
+          const compatibility = "Strong karmic echoes bring you together 🌸";
+          const mutual = { emoji: "💖", text: "Yes, strongly likes you" };
+          return {
+            met,
+            whenText,
+            connectionType,
+            duration,
+            compatibility,
+            mutual,
+            loveRng,
+          };
+        }
+
+        function updateMoodAndForecast() {
+          const seed = Date.now();
+          const rng = mulberry32(seed);
+          const moods = [
+            "Happy",
+            "Calm",
+            "Anxious",
+            "Excited",
+            "Thoughtful",
+            "Peaceful",
+            "Curious",
+          ];
+          const advices = [
+            "Take a break and breathe",
+            "Focus on what you love",
+            "Connect with a friend",
+            "Stay positive today",
+            "Reflect on your feelings",
+          ];
+          const thoughts = [
+            "Work",
+            "Family",
+            "Love",
+            "Dreams",
+            "Creativity",
+            "Self-growth",
+          ];
+          const forecasts = [
+            "A small surprise awaits you",
+            "Today is good for planning",
+            "Be open to new people",
+            "Focus on emotional balance",
+          ];
+          const lifeGlimpses = [
+            "You’ll gain insight into a personal goal",
+            "Someone important may reach out",
+            "A positive shift is coming in relationships",
+          ];
+          document.getElementById("moodNowText").textContent = pick(rng, moods);
+          document.getElementById("moodTodayText").textContent = pick(
+            rng,
+            moods
           );
-        } else if (birthIso) {
-          seed = new Date(birthIso + "T00:00:00Z").getTime() & 0xffffffff;
-        } else seed = 123456789;
-
-        const loveRng = mulberry32(seed);
-
-        let metText, whenText;
-        if (hasPartnerName) {
-          const offset = Math.floor(loveRng() * 121) - 60;
-          const when = formatMonthRangeFromOffset(offset);
-          metText = offset <= 0 ? "Already met" : "Not yet met";
-          whenText =
-            offset <= 0
-              ? `You first crossed paths around ${when.part} ${when.year}`
-              : `You are likely to meet around ${when.part} ${when.year}`;
-        } else {
-          metText = "Fated love is approaching 🌸";
-          whenText = "";
+          document.getElementById("moodAdviceText").textContent = pick(
+            rng,
+            advices
+          );
+          const list = document.getElementById("thoughtTopicsList");
+          list.innerHTML = "";
+          for (let i = 0; i < 3; i++) {
+            const li = document.createElement("li");
+            li.textContent = pick(rng, thoughts);
+            list.appendChild(li);
+          }
+          document.getElementById("todayForecast").textContent = pick(
+            rng,
+            forecasts
+          );
+          document.getElementById("lifeGlimpse").textContent = pick(
+            rng,
+            lifeGlimpses
+          );
         }
 
-        const connectionType = hasPartnerName
-          ? describeConnectionType(loveRng)
-          : "";
-        const duration = hasPartnerName ? describeDuration(loveRng) : "";
-        const lovePhrases = pick(loveRng, [
-          "A deep, steady warmth finds its way to you.",
-          "An enchanting, fated encounter weaves into your life.",
-          "Slow-burning affection blossoms into something true.",
-          "A mirror-like connection reflects your truest self.",
-          "A creative-setting meeting (art, music, travel) is likely.",
-        ]);
-        const mutual = describeMutualFeelings(loveRng, hasPartnerName);
-        const compatMsgs = hasPartnerName
-          ? [
-              "Your energies resonate deeply; twin-flame frequency detected 🔥",
-              "A soulful connection blossoms slowly 💖",
-              "Strong karmic echoes bring you together 🌸",
-              "You feel a comforting, destined bond ✨",
-            ]
-          : [
-              "A gentle, meaningful bond is forming 🌸",
-              "Your energies align quietly 💖",
-            ];
-        const compatibility = pick(loveRng, compatMsgs);
+        function updateReading() {
+          updateMoodAndForecast();
+          const now = new Date();
+          document.getElementById("time").textContent =
+            now.toLocaleTimeString();
+          document.getElementById("tz").textContent =
+            Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById("signDisplay").textContent =
+            "Zodiac: " + zodiacFromDate(now);
 
-        return {
-          lovePhrase: lovePhrases,
-          met: metText,
-          whenText,
-          connectionType,
-          duration,
-          compatibility,
-          mutual,
-          loveRng,
-        };
-      }
+          const birthIso = document.getElementById("birth").value;
+          const name = document.getElementById("name").value;
+          const partnerName = document.getElementById("partnerName").value;
+          const love = generateLoveReading(birthIso, name, partnerName);
 
-      // Update reading
-      function updateReading() {
-        const now = new Date();
-        document.getElementById("time").textContent = now.toLocaleTimeString();
-        document.getElementById("tz").textContent =
-          Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById("signDisplay").textContent =
-          "Zodiac: " + zodiacFromDate(now);
+          const rareChance =
+            Math.random() < 0.1 ||
+            (name &&
+              partnerName &&
+              name[0].toLowerCase() === partnerName[0].toLowerCase());
+          let rareLines = "";
+          if (rareChance) {
+            rareLines = `
+<div class="pill divineGlow">💫 A rare divine alignment — a love that transcends lifetimes.</div>
+<div class="pill divineGlow">🌙 Few ever experience this connection — souls recognize each other across lifetimes.</div>
+`;
+          }
 
-        const moods = [
-          "Calm",
-          "Hopeful",
-          "Busy",
-          "Reflective",
-          "Joyful",
-          "Curious",
-          "Excited",
-        ];
-        const rng = mulberry32(now.getTime() & 0xffffffff);
-        const mood = pick(rng, moods);
-        document.getElementById("feelingEmoji").textContent = pick(rng, [
-          "✨",
-          "🌸",
-          "🌞",
-          "💫",
-          "🌙",
-          "🪐",
-        ]);
-        document.getElementById("feelingTitle").textContent =
-          "Your current vibe: " + mood;
-        document.getElementById("feelingSubtitle").textContent =
-          "How the day is coloring your mood";
-        document.getElementById("moodNowText").textContent = pick(rng, [
-          "Feeling energetic",
-          "Feeling relaxed",
-          "Feeling thoughtful",
-          "Feeling playful",
-        ]);
-        document.getElementById("moodTodayText").textContent = pick(rng, [
-          "Opportunities arise",
-          "Challenges bring growth",
-          "A calm day ahead",
-          "Expect surprises",
-        ]);
-        document.getElementById("moodAdviceText").textContent = pick(rng, [
-          "Focus on what matters",
-          "Stay open to ideas",
-          "Take time to rest",
-          "Reach out to someone",
-        ]);
-        document.getElementById("thoughtTopicsList").innerHTML = pick(rng, [
-          ["Work", "Friends", "Learning"],
-          ["Family", "Health", "Projects"],
-          ["Love", "Future", "Self-care"],
-        ])
-          .map((t) => `<li>${t}</li>`)
-          .join("");
-        document.getElementById("todayForecast").textContent = pick(rng, [
-          "Expect small joys",
-          "A reflective day",
-          "Connections deepen",
-          "Energy is high",
-        ]);
-        document.getElementById("lifeGlimpse").textContent = pick(rng, [
-          "A meaningful encounter may appear soon",
-          "Growth is happening behind the scenes",
-          "Creative projects bring satisfaction",
-          "A new cycle begins",
-        ]);
-
-        const birthIso = document.getElementById("birth").value;
-        const name = document.getElementById("name").value;
-        const partnerName = document.getElementById("partnerName").value;
-        const love = generateLoveReading(birthIso, name, partnerName);
-
-        document.getElementById("loveMainLine").textContent = love.lovePhrase;
-        const meta = document.getElementById("loveMeta");
-        meta.innerHTML = "";
-        meta.innerHTML += `<div class="pill">${love.met}</div>`;
-        if (love.whenText)
-          meta.innerHTML += `<div class="pill">${love.whenText}</div>`;
-        if (love.connectionType)
-          meta.innerHTML += `<div class="pill">${love.connectionType}</div>`;
-        if (love.duration)
-          meta.innerHTML += `<div class="pill">${love.duration}</div>`;
-        meta.innerHTML += `<div class="pill">${love.compatibility}</div>`;
-        meta.innerHTML += `<div class="pill">${love.mutual.emoji} ${love.mutual.text}</div>`;
-
-        // Dynamic love heart intensity
-        const heartEl = document.querySelector(".loveHeart");
-        const closeness = love.loveRng();
-        if (closeness < 0.3) {
-          heartEl.style.color = "rgba(255,150,180,0.12)";
-          heartEl.style.transform = "scale(1) rotate(-10deg)";
-        } else if (closeness < 0.7) {
-          heartEl.style.color = "rgba(255,120,170,0.22)";
-          heartEl.style.transform = "scale(1.08) rotate(-8deg)";
-        } else {
-          heartEl.style.color = "rgba(255,90,140,0.32)";
-          heartEl.style.transform = "scale(1.15) rotate(-6deg)";
+          document.getElementById("loveMeta").innerHTML = `
+<div class="pill">${love.met}</div>
+${love.whenText ? `<div class="pill">${love.whenText}</div>` : ""}
+<div class="pill">${love.connectionType}</div>
+<div class="pill">${love.duration}</div>
+<div class="pill">${love.compatibility}</div>
+<div class="pill">${love.mutual.emoji} ${love.mutual.text}</div>
+${rareLines}
+`;
         }
-      }
 
-      // Auto update every minute
-      setInterval(updateReading, 60000);
-      document
-        .getElementById("readBtn")
-        .addEventListener("click", updateReading);
-      updateReading();
+        document
+          .getElementById("readBtn")
+          .addEventListener("click", updateReading);
+        updateReading();
+      });
     </script>
   </body>
 </html>
